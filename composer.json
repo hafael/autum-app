@@ -14,22 +14,23 @@
     "require": {
         "php": "^8.2",
         "guzzlehttp/guzzle": "^7.9",
-        "hafael/autum-notifications": "^0.0.4",
+        "hafael/autum-notifications": "^0.0.5",
         "hafael/autum-platform-sdk": "^0.0.5",
         "hafael/autum-saml-sp": "^0.0.3",
         "hafael/azure-mailer-driver": "^7.2",
         "hafael/laraflake": "^1.2",
-        "hafael/laravel-mesh-auth": "^0.0.7",
+        "hafael/laravel-mesh-auth": "^0.0.8",
         "hafael/php-http-client": "^0.1.0",
-        "inertiajs/inertia-laravel": "^1.0",
-        "laravel/framework": "^12.0",
+        "inertiajs/inertia-laravel": "^3.0",
+        "laravel/framework": "^13.0",
         "laravel/jetstream": "^5.3",
         "laravel/sanctum": "^4.0",
-        "laravel/tinker": "^2.10.1",
+        "laravel/tinker": "^3.0",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "laravel/boost": "^2.0",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.41",
@@ -37,8 +38,8 @@
         "lucascudo/laravel-pt-br-localization": "^3.0",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
-        "phpunit/phpunit": "^11.5.3",
-        "pestphp/pest": "^3.0"
+        "pestphp/pest": "^4.0",
+        "phpunit/phpunit": "^12.0"
     },
     "autoload": {
         "psr-4": {
@@ -58,6 +59,7 @@
             "@php artisan package:discover --ansi"
         ],
         "post-update-cmd": [
+            "@php artisan boost:update --ansi",
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ],
         "post-root-package-install": [

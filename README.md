@@ -1,66 +1,86 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Autum App (Repositório-Semente)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este repositório é o **repositório-semente (template / skeleton)** oficial para a criação de novas aplicações dentro da plataforma **Autum** (como `autum-crm`, `autum-helpdesk`, etc.). 
 
-## About Autum Laravel App
+Quando uma nova aplicação Autum precisa ser desenvolvida, o desenvolvedor faz o download do estado atual da branch `dev-main` deste repositório e inicia um novo repositório git para o projeto final.
 
-Autum Laravel App is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+O objetivo deste template é fornecer uma estrutura padronizada com toda a infraestrutura de autenticação, integração com microsserviços e controle de limites já configurados e prontos para uso.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠️ Infraestrutura e Tecnologias Inclusas
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Cada nova aplicação criada a partir deste repositório já vem equipada com:
 
-## Learning Laravel
+*   **Backend:** [Laravel 13](file:///Users/rafael/Work/autum-app/composer.json) executando sob **PHP 8.4**.
+*   **Frontend:** [Vue.js 3](file:///Users/rafael/Work/autum-app/package.json), [Inertia.js v3](file:///Users/rafael/Work/autum-app/package.json) (SPA sem APIs REST tradicionais) e **Tailwind CSS v3**.
+*   **Autenticação Integrada (SSO & Mesh):**
+    *   Single Sign-On (SSO) via **SAML 2.0** integrado com o Provedor de Identidade (IdP) da Autum (`accounts-local.autum.com.br`) utilizando a biblioteca `hafael/autum-saml-sp`.
+    *   Autenticação de API interna e emissão de tokens de microsserviços por meio da biblioteca `hafael/laravel-mesh-auth`.
+    *   [Laravel Jetstream](file:///Users/rafael/Work/autum-app/composer.json) e [Fortify](file:///Users/rafael/Work/autum-app/composer.json) (gerenciamento de times/equipes, fotos de perfil e autenticação de dois fatores - 2FA).
+*   **Controle de Cotas & Consumo:**
+    *   Gerenciamento e controle de limites de planos por usuário através da tabela `spend_limits`.
+    *   Integração dinâmica via View de Banco de Dados `current_spend_user` para monitoramento automatizado de limites em tempo real (limite de equipes, membros, período de testes, requisições, etc.).
+*   **Ferramentas de Testes e Linting:**
+    *   [Pest PHP](file:///Users/rafael/Work/autum-app/composer.json) para suite de testes moderna.
+    *   [Laravel Pint](file:///Users/rafael/Work/autum-app/composer.json) para formatação de código.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 📁 Arquivos Estruturais Principais
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+*   **[`app/Models/User.php`](file:///Users/rafael/Work/autum-app/app/Models/User.php):** Model de usuário configurado com Jetstream, Fortify 2FA, verificação de administradores, limites de contas (`currentSpendUser`) e emissão de tokens de acesso à API (`AppAccessToken`).
+*   **[`app/Models/CurrentSpendUser.php`](file:///Users/rafael/Work/autum-app/app/Models/CurrentSpendUser.php):** Model que mapeia a view SQL dinâmica `current_spend_user` para consultar e validar limites do usuário.
+*   **[`app/Models/Phone.php`](file:///Users/rafael/Work/autum-app/app/Models/Phone.php):** Objeto de valor especializado para normalização e validação de números de telefone no formato internacional.
+*   **[`app/Services/AutumPlatformService.php`](file:///Users/rafael/Work/autum-app/app/Services/AutumPlatformService.php):** Serviço que estende o SDK da plataforma Autum (`Autum\SDK\Platform\Client`) para delegar requisições em nome do usuário logado.
+*   **[`app/Http/Controllers/API/`](file:///Users/rafael/Work/autum-app/app/Http/Controllers/API/):** Controladores pré-prontos para busca de times (`TeamsController`) e aplicações (`ApplicationsController`) que consomem a API central do Autum.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Como Iniciar um Novo Aplicativo
 
-## Laravel Sponsors
+### 1. Inicializar a partir da Semente
+Para criar seu novo aplicativo (por exemplo, `autum-crm`):
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. Baixe o estado atual da branch `dev-main` deste repositório.
+2. Crie e inicialize um novo repositório Git para o seu novo projeto.
+3. Atualize o arquivo `composer.json` ajustando a chave `"name"` para o nome da nova aplicação (ex: `autum/autum-crm`) e outras configurações específicas do projeto.
 
-### Premium Partners
+### 2. Configurar o Ambiente Local
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Certifique-se de que possui o PHP 8.2 ou superior (Recomendado PHP 8.4), Composer e Node.js instalados.
 
-## Contributing
+1.  **Instalação de Dependências**
+    ```bash
+    composer install
+    npm install
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2.  **Variáveis de Ambiente**
+    Copie o arquivo de exemplo:
+    ```bash
+    cp .env.example .env
+    ```
+    Edite o arquivo `.env` preenchendo as configurações de banco de dados, chaves de API (`AUTUM_API_KEY`, `IDP_API_SECRET`, etc.) e a URL do Provedor SAML Autum.
 
-## Code of Conduct
+3.  **Geração da Chave da Aplicação**
+    ```bash
+    php artisan key:generate
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4.  **Banco de Dados e Seeds**
+    Execute as migrações (que criam as tabelas e a view SQL de cota de uso) e popule os limites básicos:
+    ```bash
+    php artisan migrate
+    php artisan db:seed --class=SpendLimitSeeder
+    ```
 
-## Security Vulnerabilities
+5.  **Executar o Ambiente de Desenvolvimento**
+    Use o atalho configurado no Composer para subir em paralelo o servidor web local, fila de jobs, log watcher e Vite:
+    ```bash
+    composer run dev
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6.  **Testes e Formatação**
+    Execute a suite de testes Pest para validar o ambiente:
+    ```bash
+    php artisan test
+    ```
+    Use o Pint para garantir os padrões de codificação:
+    ```bash
+    vendor/bin/pint --dirty --format agent
+    ```
