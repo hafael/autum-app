@@ -13,7 +13,7 @@ Cada nova aplicação criada a partir deste repositório já vem equipada com:
 *   **Backend:** [Laravel 13](file:///Users/rafael/Work/autum-app/composer.json) executando sob **PHP 8.4**.
 *   **Frontend:** [Vue.js 3](file:///Users/rafael/Work/autum-app/package.json), [Inertia.js v3](file:///Users/rafael/Work/autum-app/package.json) (SPA sem APIs REST tradicionais) e **Tailwind CSS v3**.
 *   **Autenticação Integrada (SSO & Mesh):**
-    *   Single Sign-On (SSO) via **SAML 2.0** integrado com o Provedor de Identidade (IdP) da Autum (`accounts-local.autum.com.br`) utilizando a biblioteca `hafael/autum-saml-sp`.
+    *   Single Sign-On (SSO) via **SAML 2.0** integrado com o Provedor de Identidade (IdP) da Autum (`accounts.autum.com.br`) utilizando a biblioteca `hafael/autum-saml-sp`.
     *   Autenticação de API interna e emissão de tokens de microsserviços por meio da biblioteca `hafael/laravel-mesh-auth`.
     *   [Laravel Jetstream](file:///Users/rafael/Work/autum-app/composer.json) e [Fortify](file:///Users/rafael/Work/autum-app/composer.json) (gerenciamento de times/equipes, fotos de perfil e autenticação de dois fatores - 2FA).
 *   **Controle de Cotas & Consumo:**
